@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>getInitialState</title>
+		<script src="include/react.js"></script>
+		<script src="include/react-dom.js"></script>
+		<script src="include/browser.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="root"></div>
+		<div id="example"></div>
+<!-------------------------------------------------------------------------------------->		
+		<script type="text/babel">
+			var LikeButton=React.createClass({
+				//getInitialState定义初始状态，对象liked可通过this.state读取
+				getInitialState:function(){
+					return {liked:false}
+				},
+//  this.props 表示那些一旦定义，就不再改变的特性，而 this.state 是会随着用户互动而产生变化的特性。
+				handleClick:function(evt){
+					this.setState({liked:!this.state.liked});
+				},
+				
+				render:function(){
+					var text=this.state.liked?'like':"don't like";
+					return (
+						<p onClick={this.handleClick}>
+							You {text} this Click to Toggle!
+						</p>
+					)
+				}
+			})
+			
+			ReactDOM.render(
+				<LikeButton />,
+				document.getElementById('root')
+			)
+				
+//---------------------------------------------------------------------------------------
+
+		</script>
+	</body>
+</html>

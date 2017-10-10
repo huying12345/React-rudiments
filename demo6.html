@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>select</title>
+		<script src="include/react.js"></script>
+		<script src="include/react-dom.js"></script>
+		<script src="include/browser.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="root"></div>
+		<div id="example"></div>
+<!-------------------------------------------------------------------------------------->		
+		<script type="text/babel">
+			
+			var Input =React.createClass({
+				getInitialState:function(){
+					return {value:1}
+				},
+				
+				handleChange:function(evt){
+					this.setState({value:evt.target.value})
+				},
+				
+				render:function(){
+					var value=this.state.value;
+					return (
+						<div>
+							<select value={value} onChange={this.handleChange}>
+								<option value='1'>1</option>
+								<option value='2'>2</option>
+								<option value='3'>3</option>
+								<option value='4'>4</option>
+							</select>
+							<p>{value}</p>
+						</div>
+					)
+				}
+			})
+			ReactDOM.render(
+				<Input />,
+				document.getElementById('root')
+			)
+//---------------------------------------------------------------------------------------
+
+		</script>
+	</body>
+</html>

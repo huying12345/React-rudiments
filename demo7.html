@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>组件的生命周期</title>
+		<script src="include/react.js"></script>
+		<script src="include/react-dom.js"></script>
+		<script src="include/browser.min.js"></script>
+	</head>
+	<style>
+		li{list-style-type: square;}
+	</style>
+	<body>
+		
+		<div id="root">
+			<h2>组件的生命周期分成三个状态：</h2>
+			<ol>
+				<li>Mounting：已插入真实 DOM</li>
+				<li>Updating：正在被重新渲染</li>
+				<li>Unmounting：已移出真实 DOM</li>
+			</ol>
+			<h2>React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。</h2>
+			<ul>
+				<li>componentWillMount()在安装发生之前立即被调用,constructor()</li>
+				<li>componentDidMount()在组件安装后立即被调用</li>
+				<li>componentWillUpdate(object nextProps, object nextState)</li>
+				<li>componentDidUpdate(object prevProps, object prevState)</li>
+				<li>componentWillUnmount()</li>
+			</ul>
+			<h2>此外，React 还提供两种特殊状态的处理函数。</h2>
+			<ul>
+				<li>componentWillReceiveProps(object nextProps)：在安装的组件接收到新的道具之前被调用</li>
+				<li>shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用</li>
+			</ul>
+		</div>
+		<div id="example"></div>
+<!-------------------------------------------------------------------------------------->		
+		<script type="text/babel">
+			//componentDidMount()在组件安装后立即被调用
+			var Hello=React.createClass({
+				getInitialState:function(){
+					return {opacity:1.0}
+				},
+				
+				componentDidMount:function(){
+					this.timer=setInterval(function(){
+						var opacity=this.state.opacity;
+						opacity-=0.05;
+						if(opacity<0.01){
+							opacity=1.0;
+						}
+						this.setState({opacity:opacity});
+					}.bind(this),100)
+				},
+				
+	//React 组件样式是一个对象，所以第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象。
+				render:function(){
+					return (
+						<div style={{opacity:this.state.opacity}}>
+							Hello,{this.props.name}
+						</div>
+					)
+				}
+			})
+			
+			
+			ReactDOM.render(
+				<Hello name='Candy'/>,
+				document.getElementById('example')
+			)
+//---------------------------------------------------------------------------------------
+
+		</script>
+	</body>
+</html>

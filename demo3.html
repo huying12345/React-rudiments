@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ref获取真实的DOM节点</title>
+		<script src="include/react.js"></script>
+		<script src="include/react-dom.js"></script>
+		<script src="include/browser.min.js"></script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<div id="example"></div>
+<!-------------------------------------------------------------------------------------->		
+		<script type="text/babel">
+			var MyComponent=React.createClass({
+				handleClick:function(){
+					this.refs.myTextInput.focus()
+				},
+				
+				render:function(){
+					return (
+						<div>
+							<input type='text' ref='myTextInput'/>
+							<input type='button' value="Focus the text input" onClick={this.handleClick} />
+						</div>
+					)
+				}
+			});
+			//获取的是真实 DOM ，必须等到虚拟 DOM 插入文档以后，才能使用这个属性，否则会报错。
+			ReactDOM.render(
+				<MyComponent />,
+				document.getElementById('root')
+			)
+//---------------------------------------------------------------------------------------
+
+		</script>
+	</body>
+</html>

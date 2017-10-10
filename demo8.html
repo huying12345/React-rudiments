@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Ajax</title>
+		<script src="include/react.js"></script>
+		<script src="include/react-dom.js"></script>
+		<script src="include/browser.min.js"></script>
+	</head>
+	<style>
+		li{list-style-type: square;}
+	</style>
+	<body>
+		
+		<div id="root">
+			<h3>1. 组件的数据来源，通常是通过ajax请求从服务器获取，可以使用componentDidMount()来设置ajax请求，成功之后用this.setState()重新渲染UI</h3>
+		</div>
+		<div id="example"></div>
+<!-------------------------------------------------------------------------------------->		
+		<script src="include/jquery.min.js"></script>
+		<script type="text/babel">
+//---------------------------------------------------------------------------------------
+			var GuestList=React.createClass({
+				getInitialState:function(){
+					return {
+						userName:'',
+						url:''
+					}
+				},
+				
+				componentDidMount:function(){
+					$.get(this.props.source,function(msg){
+						var htm=msg[0];
+						if(this.isMounted()){
+							this.setState({
+								userName:htm.owner.id,
+								url:htm.html_url
+							})
+						}
+					}.bind(this))
+				},
+				
+				render:function(){
+					return (
+						<div>
+							{this.state.userName}'s url is,
+							<a href={this.state.url} target="_blank">here</a>
+							<p>{this.state.url}</p>
+						</div>
+					)
+				}
+			})
+			
+			ReactDOM.render(
+				<GuestList source='https://api.github.com/users/octocat/gists' />,
+				document.getElementById('example')
+			)
+			
+		</script>
+	</body>
+</html>
