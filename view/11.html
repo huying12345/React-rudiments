@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>列表和密钥</title>
+    <script src="../include/react.js"></script>
+    <script src="../include/react-dom.js"></script>
+    <script src="../include/browser.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/babel">
+    //使用maps()函数来获取一个数组numbers并将其值加倍，我们将返回的新数组分配给map()变量doubled并记录它
+    const numbers=[1,2,3,4,5,6];
+    const doubled=numbers.map((number)=>number*2);//map遍历numbers数组，实现每个元素都*2
+    console.log(doubled);
+
+    //渲染多个组件
+    //用花括号将元素集合包含在JSX中
+
+    const todos=[
+        {id:1,text:'Candy'},
+        {id:2,text:'John'},
+        {id:3,text:"Smith"}
+    ]
+    const todItems=todos.map((todo)=>
+        <li key={todo.id}>{todo.text}</li>
+    )
+   console.log(todItems);
+</script>
+</body>
+</html>

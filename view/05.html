@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>变量不是唯一的时候可以独立更新每一个变量</title>
+    <script src="../include/react.js"></script>
+    <script src="../include/react-dom.js"></script>
+    <script src="../include/browser.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Clock extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={
+                    posts:[],
+                    comments:[]
+                }
+            }
+        //更新posts的值
+            componentDidMount(){
+                fetchPosts().then(response=>{
+                    this.setState({
+                        posts:response.posts
+                    });
+                });
+        //更新comments的值
+                fetchComments().then(response=>{
+                    this.setState({
+                        comments:response.comments
+                    });
+                });
+            }
+        //渲染内容
+            render(){
+                return(
+                  <div>
+                      <h1>Goodmorning dear Candy,Welcome to your Webstorm Object-React.js.</h1>
+                      <h2>Now It is {this.state.posts}</h2>
+                   </div>
+                )
+            }
+        }
+        ReactDOM.render(
+                <Clock />,
+                document.getElementById('root')
+        )
+    </script>
+</body>
+</html>
