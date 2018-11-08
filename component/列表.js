@@ -1,32 +1,30 @@
 
 const numbers = ['a','b','c','d','e','f'];
+function ListItem(props) {
+    // 对啦！这里不需要指定key:
+    return <li>{props.value}</li>
+}
 class ListDemo extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            list: props.list
-        }
-        this.listItem = this.listItem.bind(this)
     }
-    listItem(value, index){
-        //key 的正确使用
-        return <li key={index} id={index}>{value}</li>
-    }
-
+    listItem = numbers.map((number) =>
+        // 又对啦！key应该在数组的上下文中被指定
+        <ListItem key={number.toString()}
+                  value={number}/>
+    )
     render(){
         return(
             <div>
-                <ul>
-                    {this.state.list && this.state.list.length > 0 ?
-                        this.state.list.map((item,index) => this.listItem(item,index))
-                        : "无数据"}
-                </ul>
+                <ol>
+                    {this.listItem}
+                </ol>
             </div>
         )
     }
 }
 
-ReactDOM.render(<ListDemo list={numbers}/>, document.getElementById("app"))
+ReactDOM.render(<ListDemo/>, document.getElementById("app"))
 
 
 
